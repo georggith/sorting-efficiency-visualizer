@@ -1,5 +1,8 @@
 import scr.number_generator.create_random_array as ng
 
+# Run test class
+# pytest -s tests/number_generator/test_random_array.py::test_generate_random_array
+
 def test_generate_random_array():
 
     length = 10
@@ -9,6 +12,8 @@ def test_generate_random_array():
     allow_negative=False
     
     arr = ng.generate_random_array(length, min_val, max_val, is_float, allow_negative)
+
+    print(arr)
 
     assert len(arr) == length, 'The size of the array is incorrect'
     assert min(arr) >= min_val, 'The min value of the array is too small'

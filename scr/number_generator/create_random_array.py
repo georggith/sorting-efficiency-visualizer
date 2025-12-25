@@ -1,4 +1,4 @@
-import random
+import numpy as np
 
 def generate_arrays(min_power, max_power):
     arrays = {}
@@ -9,28 +9,23 @@ def generate_arrays(min_power, max_power):
         arrays[arr_length] = new_arr
     return arrays
 
-def generate_random_array(length, min_val, max_val, is_float=False, allow_negative=False):
+def generate_random_array(length, min_val, max_val, allow_floats=False, allow_negative=False):
     """
     Generates an array of random numbers based on specified constraints.
     """
-    # Boundary Adjustment: If negative numbers are NOT allowed, 
-    # ensure the floor is at least 0.
-    start_point = min_val if allow_negative else max(0, min_val)
-    
+
+    # Validation: Ensure the start point is bigger than or equal to 0 if negatives are not allows
+    if min_val < 0 and allow_negative==False:
+        return "Error: Min value cannot smaller than 0 if negatives are not allowed."
+
     # Validation: Ensure the range is logical
-    if start_point > max_val:
+    if min_val > max_val:
         return "Error: Min value cannot be greater than Max value."
 
-    random_numbers = []
-    
-    for _ in range(length):
-        if is_float:
-            # random.uniform provides a floating point between two bounds
-            num = random.uniform(start_point, max_val)
-        else:
-            # random.randint provides an integer including both endpoints
-            num = random.randint(start_point, max_val)
-            
-        random_numbers.append(num)
+    # use num py to create a array of random numbers
+    if allow_floats:
+        random_numbers = np.random.randint(min_val, max_val, length, dtype=np.int32)
+    else:
+        random_numbers = np.random.randint(min_val, max_val, length, dtype=np.int32)
         
     return random_numbers
