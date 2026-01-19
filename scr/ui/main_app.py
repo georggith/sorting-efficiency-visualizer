@@ -43,6 +43,13 @@ class main_app():
         except ValueError as e:
             print('ValueError={e}')
 
+    def set_max_time(self, value):
+        try:
+            self.algorithm_manager.max_time = int(value)
+            print('max_time={value}')
+        except ValueError as e:
+            print('ValueError={e}')
+
     def print_plot(self,x_vals,y_vals,title):
         self.ax.plot(
             x_vals, y_vals,
@@ -175,7 +182,8 @@ class main_app():
             ('Min Power',self.set_min_power, self.algorithm_manager.min_array_size), 
             ('Max Power',self.set_max_power, self.algorithm_manager.min_array_size), 
             ('Min number',self.set_min_value, self.algorithm_manager.min_value), 
-            ('Max number', self.set_max_value, self.algorithm_manager.max_value)
+            ('Max number', self.set_max_value, self.algorithm_manager.max_value),
+            ('Max time', self.set_max_time, self.algorithm_manager.max_time)
             ]
         for control in controls:
             self.create_control_row(layout, control[0], control[1], control[2])

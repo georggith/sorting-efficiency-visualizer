@@ -4,6 +4,7 @@ from scr.algorithms.bubble_sort import bubble_sort
 from scr.algorithms.counting_sort import counting_sort
 from scr.number_generator.create_random_array import generate_arrays
 from scr.algorithms.build_in import buildin_standard_sort
+from scr.algorithms.insertion_sort import insertion_sort
 
 class run_algorithms():
 
@@ -13,8 +14,7 @@ class run_algorithms():
     min_value = 0
     max_value = 10000
 
-    # Set the max duration before the algorithm stops to 10 seconds
-    run_time_max_duration = 10
+    max_time = 10
 
     def sort_array(self, sample_arrays, sorting_func, algo):
         durations = {}
@@ -22,10 +22,10 @@ class run_algorithms():
         for length, arr in sample_arrays.items():
             start_time = time.time() 
             try:
-                sorting_func(arr[:])
+                sorting_func(arr[:], self.max_time)
             except TimeoutError as e:
                 print("Sorting was aborded, because the sorting took more than 10 seconds")
-                durations[length] = self.run_time_max_duration
+                durations[length] = self.max_time
                 break
             end_time = time.time()
             durations[length] = end_time - start_time
@@ -48,5 +48,6 @@ class run_algorithms():
         result_data["Bubble Sort"] = self.sort_array(sample_arrays, bubble_sort, "Bubble Sort")
         result_data["Quick Sort"] = self.sort_array(sample_arrays, quick_sort, "Quick Sort")
         result_data["Counting Sort"] = self.sort_array(sample_arrays, counting_sort, "Counting Sort")
+        result_data["Insertion Sort"] = self.sort_array(sample_arrays, insertion_sort, "Insertion Sort")
 
         return result_data

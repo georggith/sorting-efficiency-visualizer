@@ -1,11 +1,11 @@
 import time
-def quick_sort(arr):
+def quick_sort(arr, max_time=10):
     start_time = time.time()
-    quick_sort_inner(arr, start_time)
+    quick_sort_inner(arr, start_time, max_time)
 
-def quick_sort_inner(arr, start_time):
-    if time.time() - start_time > 10:
-        raise TimeoutError("Function execution took more than 10 seconds")
+def quick_sort_inner(arr, start_time, max_time=10,):
+    if time.time() - start_time > max_time:
+        raise TimeoutError("Function execution took more than {max_time} seconds")
 
     if len(arr) <= 1:
         return arr
