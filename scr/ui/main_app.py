@@ -11,7 +11,7 @@ class main_app():
     figure = None
     ax= None
 
-    markers = [".", ",", "o", "v", "^", "<", ">", "1", "2", "3", "4", "8", "s", "p", "P", "*", "h", "H", "+", "x", "X", "D", "d"]
+    markers = [".", ",", "o", "v", "^", "<", ">", "1", "2", "3", "4", "8", "x", "p", "P", "*", "h", "H", "+", "s", "X", "D", "d"]
 
     algorithm_manager = run_algorithms()
 
@@ -49,6 +49,26 @@ class main_app():
             print('max_time={value}')
         except ValueError as e:
             print('ValueError={e}')
+
+    def refresh_plot(self):
+        print("Refresh triggered")
+        self.ax.cla()
+        self.ax.set_title("Sorting times for different sized lists")
+        self.ax.set_xscale('log')
+        self.ax.set_yscale('log')
+        self.ax.set_xlabel("Array size")
+        self.ax.set_ylabel("Execution Time in s")
+        self.ax.legend(loc='upper left', fontsize=10, frameon=True)
+
+        self.ax.grid(
+            True,             # enable grid
+            which='both',     # 'major', 'minor', or 'both'
+            linestyle='--',   # '-', '--', '-.', ':'
+            linewidth=0.8,    # thickness
+            color='gray',     # color
+            alpha=0.7         # transparency
+        )
+        self.canvas.draw()
 
     def print_plot(self,x_vals,y_vals,title):
         self.ax.plot(
@@ -103,20 +123,7 @@ class main_app():
         self.canvas.setMinimumHeight(1000)
         self.canvas.setMaximumHeight(2000)
         self.ax = self.figure.add_subplot(111)
-        self.ax.set_title("Sorting times for different sized lists")
-        self.ax.set_xscale('log')
-        self.ax.set_xlabel("Array size")
-        self.ax.set_ylabel("Execution Time in s")
-        self.ax.legend(loc='upper left', fontsize=10, frameon=True)
-
-        self.ax.grid(
-            True,             # enable grid
-            which='both',     # 'major', 'minor', or 'both'
-            linestyle='--',   # '-', '--', '-.', ':'
-            linewidth=0.8,    # thickness
-            color='gray',     # color
-            alpha=0.7         # transparency
-        )
+        self.refresh_plot()
         holder.addWidget(self.canvas)
 
         return container
@@ -126,8 +133,12 @@ class main_app():
         command_button_layout = QHBoxLayout()
         run_btn = self.create_QPushButton('Run')
         run_btn.clicked.connect(self.on_run_click)
+
+        refresh_btn = self.create_QPushButton('Refresh')
+        refresh_btn.clicked.connect(self.refresh_plot)
         command_button_layout.addWidget(run_btn,alignment=Qt.AlignCenter)
-        command_button_layout.addWidget(self.create_QPushButton('Stop'),alignment=Qt.AlignCenter)
+        command_button_layout.addWidget(refresh_btn,alignment=Qt.AlignCenter)
+
         return command_button_layout
 
     def create_label(self, text):

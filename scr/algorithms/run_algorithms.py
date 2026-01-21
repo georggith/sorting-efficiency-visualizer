@@ -5,6 +5,7 @@ from scr.algorithms.counting_sort import counting_sort
 from scr.number_generator.create_random_array import generate_arrays
 from scr.algorithms.build_in import buildin_standard_sort
 from scr.algorithms.insertion_sort import insertion_sort
+from scr.algorithms.merge_sort import merge_sort_v1, merge_sort_v2
 
 class run_algorithms():
 
@@ -49,5 +50,7 @@ class run_algorithms():
         result_data["Quick Sort"] = self.sort_array(sample_arrays, quick_sort, "Quick Sort")
         result_data["Counting Sort"] = self.sort_array(sample_arrays, counting_sort, "Counting Sort")
         result_data["Insertion Sort"] = self.sort_array(sample_arrays, insertion_sort, "Insertion Sort")
+        result_data["Merge Sort v1"] = self.sort_array(sample_arrays, merge_sort_v1, "Merge Sort v1")
+        result_data["Merge Sort v2"] = self.sort_array(sample_arrays, merge_sort_v2, "Merge Sort v2")
 
         return result_data

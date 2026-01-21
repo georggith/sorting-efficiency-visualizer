@@ -27,5 +27,5 @@ def generate_random_array(length, min_val, max_val, allow_floats=False, allow_ne
         random_numbers = np.random.randint(min_val, max_val, length, dtype=np.float32)
     else:
         random_numbers = np.random.randint(min_val, max_val, length, dtype=np.int32)
-        
+
     return random_numbers
